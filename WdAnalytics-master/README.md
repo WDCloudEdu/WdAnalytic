@@ -19,9 +19,9 @@
 `方法1：`
 ### 项目根目录build.gradle中添加
 ### maven { url "https://jitpack.io" }
-### （导入报错检查是否添加）classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
 ### 导入依赖
-### implementation 'com.github.WDCloudEdu:WdAnalytic:1.0.1' （以最新为主）
+` implementation 'com.github.WDCloudEdu:WdAnalytic:1.0.1' （以最新为主）
+
 `方法2：`
 #### 在根项目build.gradle allprojects中配置Maven库
 
@@ -110,3 +110,4 @@
     
 ### 12.常见问题（GreenDao数据库3.0.0版本冲突）
     删除本地 DaoMaster丶DaoSession丶xxDao文件，重新编译生成。
+    （导入报错检查根目录build.gradle是否添加）classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
