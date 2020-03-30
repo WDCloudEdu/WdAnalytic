@@ -16,13 +16,13 @@
  [![](https://jitpack.io/v/sweet-guy/WdAnalytics.svg)](https://jitpack.io/#WDCloudEdu/WdAnalytic)
 ## 开始集成：
 ### 1.	导入统计SDK
-`方法1：`
+##### 方法1：`
 ### 项目根目录build.gradle中添加
 ### maven { url "https://jitpack.io" }
 ### 导入依赖
 `implementation 'com.github.WDCloudEdu:WdAnalytic:1.0.1' （以最新为主）
 
-`方法2：`
+##### 方法2：`
 #### 在根项目build.gradle allprojects中配置Maven库
 
 `maven{url 'http://192.168.6.133:8888/nexus/content/repositories/WdMobile/'}`
