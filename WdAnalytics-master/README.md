@@ -36,7 +36,9 @@
     android:exported="true"
     android:enabled="true">
 </service>
+
 ### 3.权限
+#### 权限：
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
