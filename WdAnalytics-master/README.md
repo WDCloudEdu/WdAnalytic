@@ -20,7 +20,7 @@
 ### 项目根目录build.gradle中添加
 ### maven { url "https://jitpack.io" }
 ### 导入依赖
-### implementation 'com.github.sweet-guy:WdAnalytics:2.0.0' （以最新为主）
+### implementation 'com.github.WDCloudEdu:WdAnalytic:1.0.1' （以最新为主）
 `方法2：`
 #### 在根项目build.gradle allprojects中配置Maven库
 
