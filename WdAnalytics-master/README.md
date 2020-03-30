@@ -13,12 +13,13 @@
 ## 11.历史版本
 ## 12.常见问题
  [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](http://192.168.6.133:8888/nexus/content/repositories/WdMobile/com/wdcloud/analytic/analytic-release/)
- [![](https://jitpack.io/v/sweet-guy/WdAnalytics.svg)](https://jitpack.io/#sweet-guy/WdAnalytics)
+ [![](https://jitpack.io/v/sweet-guy/WdAnalytics.svg)](https://jitpack.io/#WDCloudEdu/WdAnalytic)
 ## 开始集成：
 ### 1.	导入统计SDK
 `方法1：`
 ### 项目根目录build.gradle中添加
 ### maven { url "https://jitpack.io" }
+### （导入报错检查是否添加）classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
 ### 导入依赖
 ### implementation 'com.github.WDCloudEdu:WdAnalytic:1.0.1' （以最新为主）
 `方法2：`
