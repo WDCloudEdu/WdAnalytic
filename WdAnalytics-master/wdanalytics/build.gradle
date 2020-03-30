@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'maven'
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                pom.groupId = "com.wdcloud.analytic"
+                pom.artifactId = "analytic-release"
+                pom.version = "1.0.9"
+                repository(url: "http://192.168.6.133:8888/nexus/content/repositories/WdMobile/") {
+                    authentication(userName: "deployment", password: "deployment123")
+                }
+            }
+        }
+    }
+    defaultConfig {
+        minSdkVersion 20
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.wdcloud.analytics.greendao.gen'
+        targetGenDir 'src/main/java'
+    }
+//    configurations {
+//        all*.exclude group: 'com.squareup.okhttp3', module: 'okhttp'
+//    }
+}
+
+dependencies {
+//    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    provided 'org.greenrobot:greendao:3.2.2'
+    provided 'com.squareup.okhttp3:okhttp:3.3.0'
+//    provided files('libs/gson-2.6.2.jar')
+    implementation 'com.google.code.gson:gson:2.8.1'
+}
