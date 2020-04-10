@@ -36,11 +36,13 @@ public class AnalyticsNetUtil {
      */
     public static void postJson(final String path, final Object paramObj, final AnalyticNetCallBack netCallBack) {
         Log.e("伟东统计开始上传" ,"=======================================");
+        AnalyticsSharedPreference instance = AnalyticsSharedPreference.getInstance();
+        String accessKey = (String) instance.getData("access-key", "7f5b3a8408c8b891d94f58308e0cc6a9");
         String paramJson = new Gson().toJson(paramObj);
         String url = path.startsWith("http") ? path : BSSE_ANALYTIC + path;
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("access-key","7f5b3a8408c8b891d94f58308e0cc6a9")
+                .addHeader("access-key",accessKey)
                 .addHeader("Content-Type", "application/json-patch+json")
                 .post(RequestBody.create(MediaType.parse("application/json; charset=utf-8"), paramJson))
                 .build();

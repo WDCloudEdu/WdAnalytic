@@ -2,8 +2,11 @@ package com.wdcloud.wdanalytics;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -12,12 +15,14 @@ import com.wdcloud.wdanalytics.bean.CrashAnalyticsBean;
 import com.wdcloud.wdanalytics.bean.EventBean;
 import com.wdcloud.wdanalytics.bean.WdAnalyticsBean;
 import com.wdcloud.wdanalytics.service.AnalyticsService;
+import com.wdcloud.wdanalytics.util.AnalyticActivity;
 import com.wdcloud.wdanalytics.util.AnalyticsBeanFactory;
 import com.wdcloud.wdanalytics.util.AnalyticsNetUtil;
 import com.wdcloud.wdanalytics.util.AnalyticsSharedPreference;
 import com.wdcloud.wdanalytics.util.GreenDaoManager;
 import com.wdcloud.wdanalytics.util.GsonUtil;
 import com.wdcloud.wdanalytics.util.LogUtil;
+import com.wdcloud.wdanalytics.util.NetWorkStateReciver;
 import com.wdcloud.wdanalytics.util.NetWorkUtils;
 import com.wdcloud.wdanalytics.util.TimeUtil;
 
@@ -49,6 +54,7 @@ public class WdAnalytics {
     private static WdAnalyticsBean.ProPertiesBean proPertiesBean;
     private static WdAnalyticsBean.ProPertiesBean getproperties;
     private static String timeStame;
+    private static NetWorkStateReciver netWorkStateReciver;
 
     //统计初始化
     public static void init(Context context, String project, Boolean isdebug, int minute)
@@ -72,11 +78,24 @@ public class WdAnalytics {
         String apnType = getAPNType(context);
         instance.saveData("ApnType",apnType);
         instance.saveData("IP",ip);
+        netWorkStateReciver = new NetWorkStateReciver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        context.registerReceiver(netWorkStateReciver,intentFilter);
         AnalyticsBeanFactory.saveWdAanlyticsFactory(context,project,minute);
         String phoneinfo = AnalyticsBeanFactory.getCrashWdAanlyticsFactory().toString();
         LogUtil.e("伟东统计设备信息",phoneinfo);
-        Intent intent = new Intent(context, AnalyticsService.class);
-        context.startService(intent);
+        Intent serviceintent = new Intent(context, AnalyticsService.class);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            Intent intent = new Intent(context, AnalyticActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+        else
+        {
+            context.startService(serviceintent);
+        }
         event_session= GreenDaoManager.getInstance().getEventSession();
         crash_session=GreenDaoManager.getInstance().getCrashSession();
         Log.e("伟东统计初始化完毕","============================");
@@ -91,7 +110,8 @@ public class WdAnalytics {
         LogUtil.e("统计用户信息为：","distinctId:"+distinctId+"-*- locationCode:"+locationCode+"-*- channel:"+channel);
     }
     //使用时长统计
-    public static void setExitApp(){
+    public static void setExitApp(Context context){
+        context.getApplicationContext().unregisterReceiver(netWorkStateReciver);
         AnalyticsSharedPreference instance = AnalyticsSharedPreference.getInstance();
         instance.saveData("pageName","");
         instance.saveData("pageId","");
@@ -271,5 +291,9 @@ public class WdAnalytics {
         proPertiesBean = new WdAnalyticsBean.ProPertiesBean(apnType);
         proPertiesBean.setCustomInfo(myEventinfo);
         return proPertiesBean;
+    }
+    public static void setWdAcceesKey(String acceesKey){
+        AnalyticsSharedPreference instance = AnalyticsSharedPreference.getInstance();
+        instance.saveData("access-key", acceesKey);
     }
 }

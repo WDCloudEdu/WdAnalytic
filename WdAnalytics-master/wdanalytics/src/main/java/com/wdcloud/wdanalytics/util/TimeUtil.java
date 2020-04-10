@@ -16,7 +16,6 @@ public class TimeUtil {
         return sd.format(date);
     }
 //    public static String getTimeDifference(String strTime1, String strTime2) {
-
 //        try{
 //            Date now = df.parse(strTime1);
 //            Date date=df.parse(strTime2);

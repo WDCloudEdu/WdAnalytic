@@ -9,7 +9,7 @@ android {
             mavenDeployer {
                 pom.groupId = "com.wdcloud.analytic"
                 pom.artifactId = "analytic-release"
-                pom.version = "1.0.9"
+                pom.version = "1.1.2"
                 repository(url: "http://192.168.6.133:8888/nexus/content/repositories/WdMobile/") {
                     authentication(userName: "deployment", password: "deployment123")
                 }
@@ -45,6 +45,7 @@ android {
 dependencies {
 //    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
