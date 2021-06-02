@@ -14,6 +14,7 @@
 ## 12.常见问题
  [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen.svg)](http://192.168.6.133:8888/nexus/content/repositories/WdMobile/com/wdcloud/analytic/analytic-release/)
  [![](https://jitpack.io/v/sweet-guy/WdAnalytics.svg)](https://jitpack.io/#WDCloudEdu/WdAnalytic)
+## 注意：本sdk不把okhttp打包防止版本冲突，但主工程必须集成okhttp
 ## 开始集成：
 ### 1.	导入统计SDK
 `方法1：`
